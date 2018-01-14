@@ -1,0 +1,77 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#
+ErrorDocument 404 /AppWine/templates/404.html
+
+
+# /
+DirectoryIndex templates/index.php [NC,L]
+RewriteRule ^search/$  templates/search.php
+#RewriteRule ^search/?key=([a-zA-Z0-9]+) templates/search.php?key=$1
+RewriteRule ^user/update ?page=CustomerUpdate
+RewriteRule ^cart/$ ?page=cart
+RewriteRule ^cart/del/([0-9]+) ?page=cart&action=del&id=$1
+RewriteRule ^cart/checkout ?page=checkout
+RewriteRule ^wine/details/([0-9]+) ?page=details&id=$1
+RewriteRule ^wine/all/ ?page=AllWine
+RewriteRule ^wine/cat/([0-9]+) ?page=Cat&cat_id=$1
+
+
+# admin/
+RewriteRule ^admin/$ src/Admin/AdminSignIn.php
+RewriteRule ^admin/SignOut ?page=SignOut
+RewriteRule ^admin/index.php src/Admin/AdminValidation.php
+
+
+# admin/order/
+RewriteRule ^admin/order/$ admin/index.php?page=order
+RewriteRule ^admin/order/action/([0-9]+) admin/index.php?page=order&action=true&order_id=$1
+RewriteRule ^admin/order/print src/Order/OrderPrint.php
+
+
+# admin/wine/
+RewriteRule ^admin/wine/$ admin/index.php?page=wine-list
+RewriteRule ^admin/wine/delete/([0-9]+) admin/index.php?page=wine-list&id=$1
+RewriteRule ^admin/wine/add admin/index.php?page=wine-add
+RewriteRule ^admin/wine/image/([0-9]+)$ admin/index.php?page=wine-update-image&id=$1
+RewriteRule ^admin/wine/image/([0-9]+)/delete/([0-9]+) admin/index.php?page=wine-update-image&id=$1&del=$2
+RewriteRule ^admin/wine/update/([0-9]+) admin/index.php?page=wine-update&id=$1
+RewriteRule ^admin/wine/supply/([0-9]+) admin/index.php?page=wine-supply&id=$1
+RewriteRule ^admin/wine/export/$ src/Wine/WineExport.php
+RewriteRule ^admin/wine/export/template src/Wine/WineExportTemplate.php
+
+# admin/wine/category/
+RewriteRule ^admin/wine/cat/$ admin/index.php?page=category-list
+RewriteRule ^admin/wine/cat/delete/([0-9]+) admin/index.php?page=category-list&id=$1
+RewriteRule ^admin/wine/cat/add admin/index.php?page=category-add
+RewriteRule ^admin/wine/cat/update/([0-9]+) admin/index.php?page=category-update&id=$1
+
+# admin/wine/country/
+RewriteRule ^admin/wine/country/$ admin/index.php?page=country-list
+RewriteRule ^admin/wine/country/delete/([0-9]+) admin/index.php?page=country-list&id=$1
+RewriteRule ^admin/wine/country/add admin/index.php?page=country-add
+RewriteRule ^admin/wine/country/update/([0-9]+) admin/index.php?page=country-update&id=$1
+
+# admin/wine/publisher/
+RewriteRule ^admin/wine/publisher/$ admin/index.php?page=publisher-list
+RewriteRule ^admin/wine/publisher/delete/([0-9]+) admin/index.php?page=publisher-list&id=$1
+RewriteRule ^admin/wine/publisher/add admin/index.php?page=publisher-add
+RewriteRule ^admin/wine/publisher/update/([0-9]+) admin/index.php?page=publisher-update&id=$1
+
+# admin/promotion/
+RewriteRule ^admin/promotion/$ admin/index.php?page=promotion
+RewriteRule ^admin/promotion/delete/([0-9]+) admin/index.php?page=promotion&delete_id=$1
+RewriteRule ^admin/promotion/add admin/index.php?page=promotion-add
+RewriteRule ^admin/promotion/update/([0-9]+) admin/index.php?page=promotion-update&id=$1
+RewriteRule ^admin/promotion/export/$ src/Promotion/PromotionExport.php
+RewriteRule ^admin/promotion/(Active|Deactive)/([0-9]+) admin/index.php?page=promotion&action=$1&id=$2
+
+
+# admin/payment/
+RewriteRule ^admin/payment/$ admin/index.php?page=payment
+RewriteRule ^admin/payment/delete/([0-9]+) admin/index.php?page=payment&id=$1
+RewriteRule ^admin/payment/add admin/index.php?page=payment-add
+RewriteRule ^admin/payment/update/([0-9]+) admin/index.php?page=payment-update&id=$1
+
